@@ -24,6 +24,15 @@ void draw()
 {
   background(0);
   drawGrid();
+  drawStars();
+}
+
+void drawStars()
+{
+  for (Star s : stars)
+  {
+    s.render();
+  }
 }
 
 void drawGrid()
@@ -38,11 +47,6 @@ void drawGrid()
       rect(i * squareSize + gap, j * squareSize + gap, squareSize, squareSize);
     }
   }
-  //for(int i = 0; i < numLines; i++)
-  //{
-  //  float x = map(i, 0, numLines, gap, gridSize+gap);
-  //  line(x, gap, x, gap + gridSize);
-  //}
 }
 
 void loadData()
