@@ -8,6 +8,7 @@ int numSquares = 10;
 float squareSize;
 float gridSize;  // grid will be square, don't need width and height
 Star clickedStar;    // points to a currently clicked star
+Star secondClickedStar;  // points to a subsequently clicked star
 
 void setup()
 {
@@ -36,20 +37,49 @@ void mousePressed()
     
     if (star.checkHit() == true)
     {
-      clickedStar = star;
+      // This is the case where two stars are already connected
+      if (secondClickedStar != null)
+      {
+        // reset the second star, and set the first star
+        secondClickedStar = null;
+        clickedStar = star;
+      }
+      else
+      {
+        // no stars are currently selected
+        if (clickedStar == null)
+        {
+          clickedStar = star;
+        }
+        // first star has been selected already
+        else
+        {
+          secondClickedStar = star;
+        }
+      }
     }
   }
 }
 
+// Draws a line either connecting a star to the mouse
+// or a star to another star
 void drawLine()
 {
   if (clickedStar != null)
   {
     stroke(#FFFF00);
-    line(clickedStar.realX, clickedStar.realY, mouseX, mouseY);
+    if (secondClickedStar == null)
+    {
+      line(clickedStar.realX, clickedStar.realY, mouseX, mouseY);
+    }
+    else
+    {
+      line(clickedStar.realX, clickedStar.realY, secondClickedStar.realX, secondClickedStar.realY);
+    }
   }
 }
 
+// Call the render method for each star in the array list
 void drawStars()
 {
   for (Star s : stars)
@@ -58,6 +88,7 @@ void drawStars()
   }
 }
 
+// Draw a purple grid
 void drawGrid()
 {
   stroke(#9932CC);
