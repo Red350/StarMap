@@ -3,7 +3,7 @@ class Star
   boolean habitable;
   String name;
   float distance;
-  float x, y;
+  float x, y, z;
   float size;
   float realX, realY;
   int crossSize = 2;  // half the size of the yellow cross
@@ -19,6 +19,7 @@ class Star
     this.distance = row.getFloat("Distance");
     this.x = row.getFloat("Xg");
     this.y = row.getFloat("Yg");
+    this.z = row.getFloat("Zg");
     this.size = row.getFloat("AbsMag");
     
     // calculate actual coordinates of the centre star
@@ -29,9 +30,23 @@ class Star
     realY = height / 2 + squareSize * y;
   }
   
+  boolean checkHit()
+  {
+    // calculate distance from mouse to center of star
+    float d = sqrt(pow(mouseX-realX,2) + pow(mouseY-realY,2));
+    if (d < distance)
+    {
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }
+  
   String toString()
   {
-    return name + " " + habitable + " " + distance + " " + x + " " + y + " " + size;
+    return name + " " + habitable + " " + distance + " " + x + " " + y + " " + z + " " + size;
   }
   
   void render()

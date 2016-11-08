@@ -6,8 +6,8 @@ float gap = 50;
 int numLines = 10;
 int numSquares = 10;
 float squareSize;
-
 float gridSize;  // grid will be square, don't need width and height
+Star clickedStar;    // points to a currently clicked star
 
 void setup()
 {
@@ -25,6 +25,29 @@ void draw()
   background(0);
   drawGrid();
   drawStars();
+  drawLine();
+}
+
+void mousePressed()
+{
+  for (int i = 0; i < stars.size(); i++)
+  {
+    Star star = stars.get(i);
+    
+    if (star.checkHit() == true)
+    {
+      clickedStar = star;
+    }
+  }
+}
+
+void drawLine()
+{
+  if (clickedStar != null)
+  {
+    stroke(#FFFF00);
+    line(clickedStar.realX, clickedStar.realY, mouseX, mouseY);
+  }
 }
 
 void drawStars()
