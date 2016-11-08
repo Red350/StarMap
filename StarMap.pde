@@ -62,7 +62,9 @@ void mousePressed()
 }
 
 // Draws a line either connecting a star to the mouse
-// or a star to another star
+// or a star to another star.
+// In the case of two stars being connected, it calculates
+// the distance between those stars and displays it.
 void drawLine()
 {
   if (clickedStar != null)
@@ -75,6 +77,9 @@ void drawLine()
     else
     {
       line(clickedStar.realX, clickedStar.realY, secondClickedStar.realX, secondClickedStar.realY);
+      float distance = dist(clickedStar.x, clickedStar.y, clickedStar.z, secondClickedStar.x, secondClickedStar.y, secondClickedStar.z);
+      textAlign(LEFT, CENTER);
+      text("Distance from " + clickedStar.name + " to " + secondClickedStar.name + " is " + distance + " parsecs", gap, height - gap / 2);
     }
   }
 }
