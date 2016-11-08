@@ -69,14 +69,19 @@ void drawLine()
 {
   if (clickedStar != null)
   {
+    // One star is clicked
     stroke(#FFFF00);
     if (secondClickedStar == null)
     {
       line(clickedStar.realX, clickedStar.realY, mouseX, mouseY);
     }
+    // Case where two stars are connected
     else
     {
+      // I regret the length of these variable names...
       line(clickedStar.realX, clickedStar.realY, secondClickedStar.realX, secondClickedStar.realY);
+      
+      // calulate the distance between the two stars using the dist function
       float distance = dist(clickedStar.x, clickedStar.y, clickedStar.z, secondClickedStar.x, secondClickedStar.y, secondClickedStar.z);
       textAlign(LEFT, CENTER);
       text("Distance from " + clickedStar.name + " to " + secondClickedStar.name + " is " + distance + " parsecs", gap, height - gap / 2);
@@ -98,7 +103,8 @@ void drawGrid()
 {
   stroke(#9932CC);
   noFill();
-  // draw grid
+  
+  // Draw the grid
   for(int i = 0; i < numSquares; i++)
   {
     for(int j = 0; j < numSquares; j++)
@@ -106,8 +112,19 @@ void drawGrid()
       rect(i * squareSize + gap, j * squareSize + gap, squareSize, squareSize);
     }
   }
+  
+  // Draw the labels
+  textAlign(CENTER, CENTER);
+  fill(#9932CC);
+  // There is 1 more label than there are squares
+  for(int i = 0; i < numSquares+1; i++)
+  {
+    text(i-5, gap + i * squareSize, gap / 2);
+    text(i-5, gap / 2, gap + i * squareSize);
+  }
 }
 
+// Load the data from a csv file into a Star arraylist
 void loadData()
 {
   Table table = loadTable("HabHYG15ly.csv", "csv, header");

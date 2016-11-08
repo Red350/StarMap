@@ -62,6 +62,7 @@ class Star
     ellipse(realX, realY, size, size);
     
     // print the name
+    fill(255);
     textAlign(LEFT, CENTER);
     text(name, realX+textOffset, realY);
   }
