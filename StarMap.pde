@@ -1,24 +1,25 @@
-// OOP Labtest 1
+// OOP Labtest 1  08-11-2016
 // Pádraig Redmond C15775659
+//
+// Draws a grid of stars based on data in an input file.
+// Clicking on a star draws a line from that star to the mouse.
+// Clicking a second star draws a line between both of them and
+// prints the distance between them
 
 ArrayList<Star> stars;
-float gap = 50;
-int numLines = 10;
-int numSquares = 10;
-float squareSize;
-float gridSize;  // grid will be square, don't need width and height
-Star clickedStar;    // points to a currently clicked star
+float gap = 50;          // gap between grid and edge of window
+int numSquares = 10;     // number of squares in one row of the grid
+float squareSize;        // size of a single square of the grid
+Star clickedStar;        // points to the first star to be clicked
 Star secondClickedStar;  // points to a subsequently clicked star
 
 void setup()
 {
   size(800,800);
-  gridSize = height - gap * 2;
   squareSize = (width - (gap * 2)) / numSquares;
   stars = new ArrayList<Star>();
   loadData();
   printStars();
-  
 }
 
 void draw()
@@ -29,6 +30,9 @@ void draw()
   drawLine();
 }
 
+// Checks all stars to see if the mouse has clicked any of them,
+// and sets the value of two star object references based on their
+// current values.
 void mousePressed()
 {
   for (int i = 0; i < stars.size(); i++)
@@ -37,7 +41,7 @@ void mousePressed()
     
     if (star.checkHit() == true)
     {
-      // This is the case where two stars are already connected
+      // This is the case where two stars are already connected.
       if (secondClickedStar != null)
       {
         // reset the second star, and set the first star
@@ -62,7 +66,8 @@ void mousePressed()
 }
 
 // Draws a line either connecting a star to the mouse
-// or a star to another star.
+// or a star to another star, or nothing in the case of no star
+// currently clicked.
 // In the case of two stars being connected, it calculates
 // the distance between those stars and displays it.
 void drawLine()
@@ -136,6 +141,7 @@ void loadData()
   }
 }
 
+// Print the contents of the stars arralist
 void printStars()
 {
   for(Star s : stars)

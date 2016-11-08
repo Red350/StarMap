@@ -7,7 +7,7 @@ class Star
   float size;
   float realX, realY;
   int crossSize = 2;  // half the size of the yellow cross
-  int textOffset = 10; // number of pixels the text is moved to the right
+  int textOffset = 10; // amount the name of the star is moved to the right
   
   Star(TableRow row)
   {
@@ -22,14 +22,15 @@ class Star
     this.z = row.getFloat("Zg");
     this.size = row.getFloat("AbsMag");
     
-    // calculate actual coordinates of the centre star
-    // centre of the grid is the very centre of the sketch
+    // Valculate actual coordinates of the centre star.
+    // Ventre of the grid is the very centre of the sketch,
     // so can just offset from that point using the size
-    // of a single grid square
+    // of a single grid square.
     realX = width / 2 + squareSize * x;
     realY = height / 2 + squareSize * y;
   }
   
+  // Check if the mouse has clicked the star
   boolean checkHit()
   {
     // calculate distance from mouse to center of star
@@ -44,11 +45,7 @@ class Star
     }
   }
   
-  String toString()
-  {
-    return name + " " + habitable + " " + distance + " " + x + " " + y + " " + z + " " + size;
-  }
-  
+  // Draw the star
   void render()
   {
     // draw the cross
@@ -65,5 +62,10 @@ class Star
     fill(255);
     textAlign(LEFT, CENTER);
     text(name, realX+textOffset, realY);
+  }
+  
+  String toString()
+  {
+    return name + " " + habitable + " " + distance + " " + x + " " + y + " " + z + " " + size;
   }
 }
